@@ -1,0 +1,27 @@
+- name: update web server
+  hosts: web
+  
+  tasks: 
+  - name: ensure file is created and content is added 
+    copy: 
+      dest: /home/centos/playfile
+      content: Adding info from the Ansible playbooks in Web server.
+
+- name: update app server
+  hosts: app
+  
+  tasks: 
+  - name: ensure file is created and content is added 
+    copy: 
+      dest: /home/centos/playfile2
+      content: Adding info from the Ansible playbooks in the App serser
+
+- name: updating both the servers
+  hosts: all
+
+  tasks:
+  - name: creating a common file on both the servers.
+    copy: 
+      dest: /home/centos/commfile
+      content: same info on both the files.
+

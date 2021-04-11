@@ -1,0 +1,26 @@
+- name: update web server
+  hosts: web
+  
+  tasks: 
+  - name: ensure directory is created
+    file: 
+      path: /home/centos/node1dir
+      state: directory
+
+- name: update app server
+  hosts: app
+  
+  tasks: 
+  - name: ensure directory is created
+    file: 
+      path: /home/centos/node2dir
+      state: directory
+
+- name: update all server
+  hosts: all
+  
+  tasks: 
+  - name: ensure directory is created
+    file: 
+      path: /home/centos/commdir
+      state: directory
