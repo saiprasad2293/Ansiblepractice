@@ -1,0 +1,17 @@
+- name: update web servers
+  hosts: all
+  become: true
+
+  tasks: 
+  - name: ensure httpd is running on port 9090
+    copy: 
+      src: /home/centos/playbooks/httpd.conf
+      dest: /etc/httpd/conf/httpd.conf
+  - name: SElinux permissive mode 
+    selinux: 
+        policy: targeted
+        state: permissive
+  - name: ensure httpd is restarted
+    service: 
+      name: httpd
+      state: restarted

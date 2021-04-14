@@ -1,0 +1,13 @@
+- name: update web servers
+  hosts: all
+  become: true
+
+  tasks: 
+  - name: ensure git is installed
+    package: 
+        name: git
+        state: present
+  - name: ensure code is downloaded in the below location
+    git: 
+        repo: https://github.com/saiprasad2293/ecomm.git
+        dest: /var/www/html
