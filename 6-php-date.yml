@@ -1,0 +1,26 @@
+- name: update web servers
+  hosts: web
+  become: true
+
+  tasks: 
+  - name: ensure httpd is running on port 80
+    copy: 
+      src: /home/centos/playbooks/httpd-php.conf
+      dest: /etc/httpd/conf/httpd.conf
+  - name: moving date.php in html location
+    copy: 
+      src: /home/centos/playbooks/date.php
+      dest: /var/www/html/
+  - name: ensure httpd is restarted
+    service: 
+      name: httpd
+      state: restarted
+  - name: Ensudre php is installed
+    package: 
+      name: php
+      state: installed
+
+  - name: ensure httpd is restarted
+    service: 
+      name: httpd
+      state: restarted
