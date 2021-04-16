@@ -1,0 +1,41 @@
+- name: update web servers
+  hosts: all
+  become: true
+  vars: 
+   httpd_port: 80
+
+  handlers: 
+  - name: Restart HTTP
+    service: 
+      name: httpd
+      state: restarted
+    when: ansible_os_family == "RedHat"
+
+  tasks: 
+  - name: ensure httpd is running on port 80
+    template: 
+      src: /home/centos/playbooks/httpd.j2
+      dest: /etc/httpd/conf/httpd.conf
+    notify: 
+    - Restart HTTP
+    when: ansible_os_family == "RedHat"
+
+  - name: moving date.php in html location
+    copy: 
+      src: /home/centos/playbooks/date.php
+      dest: /var/www/html/
+
+  - name: Ensudre php is installed
+    package: 
+      name: php
+      state: present
+    notify: 
+    - Restart HTTP
+
+  - name: restart apache2
+    service: 
+      name: apache2    
+      state: restarted
+    when: ansible_os_family == "Debian"
+
+

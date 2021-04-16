@@ -1,7 +1,8 @@
 
 ServerRoot "/etc/httpd"
 
-Listen 80 
+Listen {{ httpd_port }}
+
 
 Include conf.modules.d/*.conf
 

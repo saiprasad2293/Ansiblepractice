@@ -1,0 +1,16 @@
+- name: removing httpd and apache2
+  hosts: all
+  become: yes
+
+  tasks: 
+  - name: remove
+    package: 
+      name: apache2
+      state: absent
+    when: ansible_os_family == "Debian"
+
+  - name: remove2
+    package:
+      name: httpd
+      state: absent
+    when: ansible_os_family == "RedHat"
